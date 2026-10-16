@@ -530,6 +530,14 @@ class TestExportEncoding(TestCase):
 
 
 class TestSelectableFieldsExportPage(AdminTestMixin, TestCase):
+    def test_select_all_toggles_do_not_use_inline_handlers(self):
+        response = self._get_url_response(self.book_export_url)
+        self.assertContains(response, 'class="select-toggle"', count=2)
+        self.assertNotContains(response, 'onchange="onSelectToggleChange(event)"')
+        self.assertContains(
+            response, 'src="/static/import_export/export_selectable_fields.js"'
+        )
+
     def test_selectable_fields_rendered_with_resource_index_attribute(self) -> None:
         response = self._get_url_response(self.book_export_url)
         form_resources = response.context["form"].resources

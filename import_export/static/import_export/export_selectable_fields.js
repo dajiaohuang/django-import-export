@@ -57,6 +57,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const selectedResourceIndex = resourceSelector.tagName === "SELECT" ? resourceSelector.value : 0;
 
   resourceSelector.addEventListener("input", onResourceSelected);
+  document.querySelectorAll(".select-toggle").forEach((toggle) => {
+    toggle.addEventListener("change", onSelectToggleChange);
+  });
 
   // initially hide unselected resource fields
   hideUnselectedResourceFields(selectedResourceIndex);
